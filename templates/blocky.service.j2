@@ -1,0 +1,18 @@
+# {{ ansible_managed }}
+[Unit]
+Description=Blocky DNS
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=blocky
+Group=blocky
+Restart=on-failure
+RestartSec=10
+WorkingDirectory={{ blocky__install_path }}
+ExecStart={{ blocky__install_path }}/blocky --config {{ blocky__install_path }}/config.yaml
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+
+[Install]
+WantedBy=multi-user.target

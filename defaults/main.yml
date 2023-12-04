@@ -1,0 +1,51 @@
+---
+blocky__version: v0.22
+blocky__arch: "{{ ansible_machine }}"
+blocky__system: "{{ ansible_system }}"
+blocky__base_url: https://github.com/0xERR0R/blocky/releases/download
+blocky__download_url: "{{ blocky__base_url }}/{{ blocky__version }}/blocky_{{ blocky__version }}_{{ blocky__system }}_{{ blocky__arch }}.tar.gz"
+blocky__checksum_url: "{{ blocky__base_url }}/{{ blocky__version }}/blocky_checksums.txt"
+blocky__download_path: /tmp
+blocky__install_path: /opt/blocky
+
+blocky__blocking_client_groups_block:
+  default:
+    - ads
+    - malware
+
+blocky__blocking_blacklists:
+  ads:
+    - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+    - https://raw.githubusercontent.com/notracking/hosts-blocklists/master/hostnames.txt
+    - https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
+    - https://blocklistproject.github.io/Lists/ads.txt
+    - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/domains/pro.txt
+  malware:
+    - https://blocklistproject.github.io/Lists/malware.txt
+    - https://blocklistproject.github.io/Lists/ransomware.txt
+    - https://blocklistproject.github.io/Lists/scam.txt
+    - https://blocklistproject.github.io/Lists/phishing.txt
+
+blocky__blocking_whitelists:
+  ads:
+    - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
+#   - |
+#     www.googleadservices.com
+
+blocky__ports_dns: 53
+blocky__ports_http: 4000
+
+blocky__log_level: info
+
+blocky__upstreams:
+  default:
+    - 9.9.9.9
+    - 149.112.112.112
+    - 1.1.1.1
+    - 1.0.0.1
+
+blocky__custom_dns: {}
+# web1.example.com: 10.100.1.2
+
+blocky__custom_domain: {}
+# lan: 10.100.1.1

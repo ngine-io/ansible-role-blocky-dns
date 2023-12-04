@@ -1,0 +1,2 @@
+---
+blocky__base: "blocky-{{ blocky__version }}"

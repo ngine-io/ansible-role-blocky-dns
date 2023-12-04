@@ -1,0 +1,28 @@
+---
+galaxy_info:
+  role_name: blocky_dns
+  namespace: ngine_io
+  author: René Moser
+  company: renemoser.net / ngine.io
+  description: Brocky DNS
+  license: "license (Apache2, MIT)"
+  min_ansible_version: "2.9"
+  platforms:
+    - name: EL
+      versions:
+        - "8"
+        - "9"
+    - name: Debian
+      versions:
+        - bookworm
+    - name: Ubuntu
+      versions:
+        - focal
+        - jammy
+  galaxy_tags:
+    - dns
+    - dnsproxy
+    - adblock
+    - blocklist
+    - dnsblocklist
+    - blocky

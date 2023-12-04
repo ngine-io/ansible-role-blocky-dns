@@ -1,0 +1,75 @@
+---
+name: CI
+"on":
+  pull_request:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+
+defaults:
+  run:
+    working-directory: ngine_io.blocky_dns
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v4
+        with:
+          path: ngine_io.blocky_dns
+
+      - name: Set up Python 3.
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+
+      - name: Install test dependencies.
+        run: pip3 install yamllint ansible ansible-lint
+
+      - name: Lint code.
+        run: |
+          yamllint .
+
+      - name: Lint code.
+        run: |
+          ansible-lint .
+
+  molecule:
+    name: Molecule
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - distro: debian12
+            playbook: converge.yml
+          - distro: rockylinux8
+            playbook: converge.yml
+          - distro: rockylinux9
+            playbook: converge.yml
+#         - distro: ubuntu2204
+#         playbook: converge.yml
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v4
+        with:
+          path: ngine_io.blocky_dns
+
+      - name: Set up Python 3.
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Install test dependencies.
+        run: pip3 install ansible molecule molecule-docker docker
+
+      - name: Run Molecule tests.
+        run: molecule test
+        env:
+          PY_COLORS: "1"
+          ANSIBLE_FORCE_COLOR: "1"
+          MOLECULE_DISTRO: ${{ matrix.distro }}
+          MOLECULE_PLAYBOOK: ${{ matrix.playbook }}

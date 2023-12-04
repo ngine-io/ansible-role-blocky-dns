@@ -1,0 +1,40 @@
+---
+# This workflow requires a GALAXY_API_KEY secret present in the GitHub
+# repository or organization.
+
+name: Release
+"on":
+  release:
+    types: [created]
+
+defaults:
+  run:
+    working-directory: ngine_io.blocky_dns
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v4
+        with:
+          path: ngine_io.blocky_dns
+
+      - name: Set up Python 3.
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+
+      - name: Install Ansible.
+        run: pip3 install ansible-core
+
+      - name: Trigger a new import on Galaxy.
+        env:
+          ANSIBLE_GALAXY_API_KEY: ${{ secrets.ANSIBLE_GALAXY_API_KEY }}
+        run: >-
+          ansible-galaxy role import
+          --token "$ANSIBLE_GALAXY_API_KEY"
+          --role-name blocky_dns
+          ngine_io
+          $(echo ${{ github.repository }} | cut -d/ -f2)

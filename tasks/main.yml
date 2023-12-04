@@ -1,0 +1,99 @@
+---
+- name: Create group
+  ansible.builtin.group:
+    name: blocky
+
+- name: Create user
+  ansible.builtin.user:
+    name: blocky
+    group: blocky
+    create_home: false
+    system: true
+
+- name: Ensure install and conf dirs exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    mode: "0755"
+    group: blocky
+    owner: blocky
+    state: directory
+  with_items:
+    - "{{ blocky__install_path }}/{{ blocky__base }}"
+
+- name: Check if blocky has been installed already
+  ansible.builtin.stat:
+    path: "{{ blocky__install_path }}/{{ blocky__base }}/blocky"
+  register: install_status
+
+- name: Download blocky archive
+  ansible.builtin.get_url:
+    url: "{{ blocky__download_url }}"
+    dest: "{{ blocky__download_path }}/{{ blocky__base }}.tgz"
+    group: root
+    owner: root
+    mode: "0644"
+    checksum: "sha256:{{ blocky__checksum_url }}"
+    force: false
+  when: not install_status.stat.exists
+  register: download_status
+
+- name: Expand blocky archive
+  ansible.builtin.unarchive:
+    src: "{{ blocky__download_path }}/{{ blocky__base }}.tgz"
+    dest: "{{ blocky__install_path }}/{{ blocky__base }}/"
+    group: root
+    owner: root
+    mode: "0755"
+    copy: false
+  when: download_status.changed or not install_status.stat.exists
+
+- name: Ensure owner and mode of blocky binary
+  ansible.builtin.file:
+    path: "{{ blocky__install_path }}/{{ blocky__base }}/blocky"
+    group: blocky
+    owner: blocky
+    mode: "0755"
+  notify: Restart blocky
+
+- name: Create link to blocky
+  ansible.builtin.file:
+    src: "{{ blocky__install_path }}/{{ blocky__base }}/blocky"
+    dest: "{{ blocky__install_path }}/blocky"
+    group: blocky
+    owner: blocky
+    mode: "0755"
+    state: link
+  notify: Restart blocky
+
+- name: Configure blocky
+  ansible.builtin.template:
+    src: config.yml.j2
+    dest: "{{ blocky__install_path }}/config.yaml"
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart blocky
+
+- name: Configure blocky service
+  ansible.builtin.template:
+    src: blocky.service.j2
+    dest: /etc/systemd/system/blocky.service
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart blocky
+
+- name: Ensure blocky service is enabled and running
+  ansible.builtin.systemd:
+    name: blocky
+    state: started
+    daemon_reload: true
+    enabled: true
+
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers
+
+- name: Ensure blocky is ready
+  ansible.builtin.wait_for:
+    port: "{{ blocky__ports_dns }}"
+    delay: 2
