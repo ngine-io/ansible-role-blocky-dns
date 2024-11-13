@@ -1,7 +1,16 @@
 ---
 - name: Converge
-  hosts: all
+  hosts: instance
   become: true
+  vars:
+    blocky__hosts_dns_enabled: true
+    blocky__hosts_dns_host_ip_var: "ansible_host"
+    blocky__hosts_dns_domain: ".local.example.com"
+    blocky__blocking_blacklists: {}
+    blocky__ports_dns: 127.0.0.1:5353
+    blocky__custom_dns:
+      app1.srv.example.com: 10.10.1.1
+      one.local.example.com: 10.10.1.2
   pre_tasks:
     - name: Update apt cache
       ansible.builtin.apt:

@@ -67,7 +67,7 @@
 
 - name: Configure blocky
   ansible.builtin.template:
-    src: config.yml.j2
+    src: config.yaml.j2
     dest: "{{ blocky__install_path }}/config.yaml"
     owner: root
     group: root
@@ -95,5 +95,5 @@
 
 - name: Ensure blocky is ready
   ansible.builtin.wait_for:
-    port: "{{ blocky__ports_dns }}"
-    delay: 2
+    port: "{{ (blocky__ports_dns | string | ansible.builtin.split(':') | last) if ':' in blocky__ports_dns | string else blocky__ports_dns }}"
+    delay: 5

@@ -1,4 +1,19 @@
 # {{ ansible_managed }}
+{% if blocky__hosts_dns_enabled -%}
+# Added to blocky__custom_dns from inventory due to blocky__hosts_dns_enabled=true
+{% for host in groups["all"] -%}
+{% set fqdn = host + blocky__hosts_dns_domain %}
+{% if (hostvars[host]["blocky__hosts_dns_ignore"] is undefined or not hostvars[host]["blocky__hosts_dns_ignore"])
+  and fqdn not in blocky__custom_dns
+  and hostvars[host][blocky__hosts_dns_host_ip_var] is defined
+  and host != "localhost" %}
+{% set _ = blocky__custom_dns.update({ fqdn: hostvars[host][blocky__hosts_dns_host_ip_var] }) -%}
+{% else -%}
+# Skipping {{ host }}
+{% endif -%}
+{% endfor -%}
+{% endif -%}
+
 upstream:
   {{ blocky__upstreams | to_nice_yaml(indent=2) | trim | indent(2) }}
 

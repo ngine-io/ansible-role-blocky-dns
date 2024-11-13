@@ -30,10 +30,21 @@ ansible-galaxy install -r requirements.yml
 
 None.
 
-## Example Playbook
+## Example Playbooks
 
 ```yaml
 - hosts: dns
+  roles:
+    - role: ngine_io.blocky_dns
+```
+Enable inventory hosts to custom DNS:
+
+```yaml
+- hosts: dns
+  vars:
+    blocky__hosts_dns_enabled: true
+    # Optionally append a domain but note the '.' prefix
+    blocky__hosts_dns_domain: ".local.example.com"
   roles:
     - role: ngine_io.blocky_dns
 ```

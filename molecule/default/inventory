@@ -1,0 +1,3 @@
+one   ansible_host=10.10.10.10
+two   ansible_host=10.10.10.11 blocky__hosts_dns_ignore=true
+three ansible_host=10.10.10.12
