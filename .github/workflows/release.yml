@@ -36,5 +36,5 @@ jobs:
           ansible-galaxy role import
           --token "$ANSIBLE_GALAXY_API_KEY"
           --role-name blocky_dns
-          ngine_io
+          $(echo ${{ github.repository }} | cut -d/ -f1)
           $(echo ${{ github.repository }} | cut -d/ -f2)
