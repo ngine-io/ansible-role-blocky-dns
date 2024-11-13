@@ -49,3 +49,13 @@ blocky__custom_dns: {}
 
 blocky__custom_domain: {}
 # lan: 10.100.1.1
+
+# Add hosts from inventory to blocky custom dns (default=false)
+blocky__hosts_dns_enabled: false
+# NOTE: to ignore an host, add `blocky__hosts_dns_ignore=true` to its host_vars
+blocky__hosts_dns_ignore: false
+# Optional domain to append to the custom DNS entry.
+# NOTE: also add the "." add the beginning e.g. .exmaple.com
+blocky__hosts_dns_domain: ""
+# NOTE: ansible_host must be an IPv4
+blocky__hosts_dns_host_ip_var: "ansible_host"
