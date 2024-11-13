@@ -52,6 +52,8 @@ blocky__custom_domain: {}
 
 # Add hosts from inventory to blocky custom dns (default=false)
 blocky__hosts_dns_enabled: false
+# Which inventory group for adding hosts
+blocky__hosts_dns_invenory_group: all
 # NOTE: to ignore an host, add `blocky__hosts_dns_ignore=true` to its host_vars
 blocky__hosts_dns_ignore: false
 # Optional domain to append to the custom DNS entry.

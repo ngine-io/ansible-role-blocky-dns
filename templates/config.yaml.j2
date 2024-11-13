@@ -1,7 +1,7 @@
 # {{ ansible_managed }}
 {% if blocky__hosts_dns_enabled -%}
 # Added to blocky__custom_dns from inventory due to blocky__hosts_dns_enabled=true
-{% for host in groups["all"] -%}
+{% for host in groups[blocky__hosts_dns_invenory_group] -%}
 {% set fqdn = host + blocky__hosts_dns_domain %}
 {% if (hostvars[host]["blocky__hosts_dns_ignore"] is undefined or not hostvars[host]["blocky__hosts_dns_ignore"])
   and fqdn not in blocky__custom_dns
