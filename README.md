@@ -34,6 +34,8 @@ None.
 
 ```yaml
 - hosts: dns
+  # Ensures that only one DNS host is changed at a time.
+  serial: 1
   roles:
     - role: ngine_io.blocky_dns
 ```
