@@ -7,6 +7,7 @@ blocky__download_url: "{{ blocky__base_url }}/{{ blocky__version }}/blocky_{{ bl
 blocky__checksum_url: "{{ blocky__base_url }}/{{ blocky__version }}/blocky_checksums.txt"
 blocky__download_path: /tmp
 blocky__install_path: /opt/blocky
+blocky__readiness_check_enabled: true
 
 blocky__blocking_client_groups_block:
   default:
