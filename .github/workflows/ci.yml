@@ -39,10 +39,12 @@ jobs:
     name: Molecule
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         distro:
           - debian12
-          - rockylinux9
+          # Temporarily disabled due to "sudo: A password is required" error, see https://github.com/geerlingguy/docker-rockylinux9-ansible/issues/6
+          #- rockylinux9
         blocky_version:
           - v0.24
           - v0.23
