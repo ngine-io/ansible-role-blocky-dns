@@ -43,15 +43,23 @@ jobs:
       matrix:
         distro:
           - debian12
+<<<<<<< HEAD
           # Temporarily disabled due to "sudo: A password is required" error, see https://github.com/geerlingguy/docker-rockylinux9-ansible/issues/6
           #- rockylinux9
+=======
+          - rockylinux9
+>>>>>>> 01b77ce (CI Workflow: Updated matrix)
         blocky_version:
           - v0.24
           - v0.23
           - v0.22
           - v0.21
         playbook:
+<<<<<<< HEAD
           - converge.yml
+=======
+          - converge
+>>>>>>> 01b77ce (CI Workflow: Updated matrix)
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v4
