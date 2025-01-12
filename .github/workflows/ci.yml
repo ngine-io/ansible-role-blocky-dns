@@ -40,16 +40,16 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        distro:
+          - debian12
+          - rockylinux9
         blocky_version:
-          - "v0.24"
-          - "v0.23"
-          - "v0.22"
-          - "v0.21"
-        include:
-          - distro: debian12
-            playbook: converge.yml
-          - distro: rockylinux9
-            playbook: converge.yml
+          - v0.24
+          - v0.23
+          - v0.22
+          - v0.21
+        playbook:
+          - converge
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v4
