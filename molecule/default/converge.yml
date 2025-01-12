@@ -18,5 +18,10 @@
         cache_valid_time: 600
       when: ansible_os_family == "Debian"
       changed_when: false
+
+    - name: Define blocky version
+      ansible.builtin.set_fact:
+        blocky__version: "{{ lookup('ansible.builtin.env', 'MOLECULE_BLOCKY_VERSION') }}"
+      when: lookup('ansible.builtin.env', 'MOLECULE_BLOCKY_VERSION') | length > 0
   roles:
     - role: ngine_io.blocky_dns

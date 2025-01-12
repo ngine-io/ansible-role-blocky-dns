@@ -39,6 +39,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        blocky_version:
+          - "v0.24"
+          - "v0.23"
+          - "v0.22"
+          - "v0.21"
         include:
           - distro: debian12
             playbook: converge.yml
@@ -65,3 +70,4 @@ jobs:
           ANSIBLE_FORCE_COLOR: "1"
           MOLECULE_DISTRO: ${{ matrix.distro }}
           MOLECULE_PLAYBOOK: ${{ matrix.playbook }}
+          MOLECULE_BLOCKY_VERSION: ${{ matrix.blocky_version }}
