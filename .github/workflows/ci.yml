@@ -56,10 +56,14 @@ jobs:
           - v0.21
         playbook:
 <<<<<<< HEAD
+<<<<<<< HEAD
           - converge.yml
 =======
           - converge
 >>>>>>> 01b77ce (CI Workflow: Updated matrix)
+=======
+          - converge.yml
+>>>>>>> 3a34eee (CI Workflow: Fixed playbook definition)
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v4
