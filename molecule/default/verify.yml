@@ -1,0 +1,29 @@
+---
+- name: "Verify"
+  hosts: instance
+  tasks:
+    - name: Get cert from https port
+      community.crypto.get_certificate:
+        host: localhost
+        port: 443
+        asn1_base64: true
+      register: cert
+
+    - name: Assert the correct certificate is served
+      ansible.builtin.assert:
+        that:
+          - cert.subject.CN is defined
+          - cert.subject.CN == 'blocky.example.com'
+
+    - name: Get cert from tls port
+      community.crypto.get_certificate:
+        host: localhost
+        port: 853
+        asn1_base64: true
+      register: cert
+
+    - name: Assert the correct certificate is served
+      ansible.builtin.assert:
+        that:
+          - cert.subject.CN is defined
+          - cert.subject.CN == 'blocky.example.com'

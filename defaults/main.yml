@@ -35,6 +35,8 @@ blocky__blocking_whitelists:
 
 blocky__ports_dns: 53
 blocky__ports_http: 4000
+blocky__ports_tls: ""
+blocky__ports_https: ""
 
 blocky__log_level: info
 
@@ -62,3 +64,10 @@ blocky__hosts_dns_ignore: false
 blocky__hosts_dns_domain: ""
 # NOTE: ansible_host must be an IPv4
 blocky__hosts_dns_host_ip_var: "ansible_host"
+
+# SSL certificate file. blocky__key_file must be set as well for this to have any effect.
+blocky__cert_file: ""
+# SSL key file.  blocky__cert_file must be set as well for this to have any effect.
+blocky__key_file: ""
+# Minimum TLS version blocky is serving
+blocky__min_tls_version: ""
