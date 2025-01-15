@@ -8,6 +8,10 @@
     blocky__hosts_dns_domain: ".local.example.com"
     blocky__blocking_blacklists: {}
     blocky__ports_dns: 127.0.0.1:5353
+    blocky__cert_file: "/etc/cert/blocky_cert.pem"
+    blocky__key_file: "/etc/cert/blocky_key.key"
+    blocky__ports_https: 443
+    blocky__ports_tls: 853
     blocky__custom_dns:
       app1.srv.example.com: 10.10.1.1
       one.local.example.com: 10.10.1.2
@@ -23,5 +27,6 @@
       ansible.builtin.set_fact:
         blocky__version: "{{ lookup('ansible.builtin.env', 'MOLECULE_BLOCKY_VERSION') }}"
       when: lookup('ansible.builtin.env', 'MOLECULE_BLOCKY_VERSION') | length > 0
+
   roles:
     - role: ngine_io.blocky_dns

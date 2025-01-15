@@ -1,0 +1,31 @@
+---
+- name: "Prepare"
+  hosts: instance
+  tasks:
+    - name: Create certificate directory
+      ansible.builtin.file:
+        path: "/etc/cert"
+        state: directory
+        # This is for the test only, open permissions are not a problem
+        group: root
+        owner: root
+        mode: "0755"
+
+    - name: Create private key (RSA, 4096 bits)
+      community.crypto.openssl_privatekey:
+        path: "/etc/cert/blocky_key.key"
+        mode: "0755"
+
+    - name: Create certificate signing request (CSR) for self-signed certificate
+      community.crypto.openssl_csr_pipe:
+        privatekey_path: "/etc/cert/blocky_key.key"
+        common_name: "blocky.example.com"
+      register: csr
+
+    - name: Create self-signed certificate from CSR
+      community.crypto.x509_certificate:
+        path: "/etc/cert/blocky_cert.pem"
+        csr_content: "{{ csr.csr }}"
+        privatekey_path: "/etc/cert/blocky_key.key"
+        provider: selfsigned
+        mode: "0755"

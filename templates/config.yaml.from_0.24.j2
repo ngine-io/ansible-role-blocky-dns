@@ -14,6 +14,14 @@
 {% endfor -%}
 {% endif -%}
 
+{% if blocky__cert_file | trim | length > 0 and blocky__key_file | trim | length > 0 -%}
+certFile: "{{ blocky__cert_file | trim }}"
+keyFile: "{{ blocky__key_file | trim }}"
+{% endif -%}
+{% if blocky__min_tls_version | trim | length > 0 -%}
+minTlsServeVersion: "{{ blocky__min_tls_version | trim }}"
+{% endif -%}
+
 upstreams:
   groups:
     {{ blocky__upstreams | to_nice_yaml(indent=2) | trim | indent(4) }}
@@ -30,8 +38,15 @@ blocking:
 ports:
   dns: {{ blocky__ports_dns | to_nice_yaml(indent=2) | trim | indent(2) }}
   http: {{ blocky__ports_http | to_nice_yaml(indent=2) | trim | indent(2) }}
+{% if blocky__ports_https | trim | length > 0 %}
+  https: {{ blocky__ports_https | to_nice_yaml(indent=2) | trim | indent(2) }}
+{% endif %}
+{% if blocky__ports_tls | trim | length > 0 %}
+  tls: {{ blocky__ports_tls | to_nice_yaml(indent=2) | trim | indent(2) }}
+{% endif %}
 
-logLevel: {{ blocky__log_level | to_yaml }}
+log:
+  level: {{ blocky__log_level | to_nice_yaml(indent=2) | trim | indent(2) }}
 
 caching:
   minTime: 5m
