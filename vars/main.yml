@@ -1,2 +1,9 @@
 ---
 blocky__base: "blocky-{{ blocky__version }}"
+
+# Mapping of block versions to config templates
+# Must be maintained as blocky evolves. min_version and max_version may be defined for the same template.
+blocky__config_template_versions: [
+  {'max_version': '0.23', 'template': 'config.yaml.up_to_0.23.j2'},
+  {'min_version': '0.24', 'template': 'config.yaml.from_0.24.j2'},
+]

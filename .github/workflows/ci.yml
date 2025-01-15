@@ -2,6 +2,7 @@
 name: CI
 "on":
   pull_request:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -38,12 +39,19 @@ jobs:
     name: Molecule
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        include:
-          - distro: debian12
-            playbook: converge.yml
-          - distro: rockylinux9
-            playbook: converge.yml
+        distro:
+          - debian12
+          # Temporarily disabled due to "sudo: A password is required" error, see https://github.com/geerlingguy/docker-rockylinux9-ansible/issues/6
+          #- rockylinux9
+        blocky_version:
+          - v0.24
+          - v0.23
+          - v0.22
+          - v0.21
+        playbook:
+          - converge.yml
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v4
@@ -65,3 +73,4 @@ jobs:
           ANSIBLE_FORCE_COLOR: "1"
           MOLECULE_DISTRO: ${{ matrix.distro }}
           MOLECULE_PLAYBOOK: ${{ matrix.playbook }}
+          MOLECULE_BLOCKY_VERSION: ${{ matrix.blocky_version }}

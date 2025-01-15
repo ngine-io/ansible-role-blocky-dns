@@ -1,0 +1,55 @@
+# {{ ansible_managed }}
+{% if blocky__hosts_dns_enabled -%}
+# Added to blocky__custom_dns from inventory due to blocky__hosts_dns_enabled=true
+{% for host in groups[blocky__hosts_dns_invenory_group] -%}
+{% set fqdn = host + blocky__hosts_dns_domain %}
+{% if (hostvars[host]["blocky__hosts_dns_ignore"] is undefined or not hostvars[host]["blocky__hosts_dns_ignore"])
+  and fqdn not in blocky__custom_dns
+  and hostvars[host][blocky__hosts_dns_host_ip_var] is defined
+  and host != "localhost" %}
+{% set _ = blocky__custom_dns.update({ fqdn: hostvars[host][blocky__hosts_dns_host_ip_var] }) -%}
+{% else -%}
+# Skipping {{ host }}
+{% endif -%}
+{% endfor -%}
+{% endif -%}
+
+upstreams:
+  groups:
+    {{ blocky__upstreams | to_nice_yaml(indent=2) | trim | indent(4) }}
+
+blocking:
+  blockTTL: 10s
+  denylists:
+    {{ blocky__blocking_blacklists | to_nice_yaml(indent=2) | trim | indent(4) }}
+  clientGroupsBlock:
+    {{ blocky__blocking_client_groups_block | to_nice_yaml(indent=2) | trim | indent(4) }}
+  allowlists:
+    {{ blocky__blocking_whitelists | to_nice_yaml(indent=2) | trim | indent(4) }}
+
+ports:
+  dns: {{ blocky__ports_dns | to_nice_yaml(indent=2) | trim | indent(2) }}
+  http: {{ blocky__ports_http | to_nice_yaml(indent=2) | trim | indent(2) }}
+
+logLevel: {{ blocky__log_level | to_yaml }}
+
+caching:
+  minTime: 5m
+  maxTime: 60m
+  prefetching: true
+
+customDNS:
+  customTTL: 60m
+  filterUnmappedTypes: true
+  rewrite:
+  mapping:
+    {{ blocky__custom_dns | to_nice_yaml(indent=2) | trim | indent(4) }}
+
+conditional:
+  fallbackUpstream: false
+  mapping:
+    {{ blocky__custom_domain | to_nice_yaml(indent=2) | trim | indent(4) }}
+
+prometheus:
+  enable: true
+  path: /metrics
