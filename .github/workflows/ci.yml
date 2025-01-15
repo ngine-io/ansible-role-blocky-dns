@@ -44,11 +44,16 @@ jobs:
         distro:
           - debian12
 <<<<<<< HEAD
+<<<<<<< HEAD
           # Temporarily disabled due to "sudo: A password is required" error, see https://github.com/geerlingguy/docker-rockylinux9-ansible/issues/6
           #- rockylinux9
 =======
           - rockylinux9
 >>>>>>> 01b77ce (CI Workflow: Updated matrix)
+=======
+          # Temporarily disabled due to "sudo: A password is required" error, see https://github.com/geerlingguy/docker-rockylinux9-ansible/issues/6
+          #- rockylinux9
+>>>>>>> b8ea741 (CI Workflow: Temporarily disabled rockylinux9)
         blocky_version:
           - v0.24
           - v0.23
