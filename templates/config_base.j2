@@ -82,3 +82,8 @@ prometheus:
   enable: true
   path: /metrics
 {% endblock %}
+
+{% block redis -%}
+redis:
+  {{ blocky__redis | to_nice_yaml(indent=2) | trim | indent(2) }}
+{% endblock %}
