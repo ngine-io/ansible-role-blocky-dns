@@ -70,6 +70,11 @@ customDNS:
     {{ blocky__custom_dns | to_nice_yaml(indent=2) | trim | indent(4) }}
 {% endblock %}
 
+{% block bootstrap_dns -%}
+bootstrapDns:
+  {{ blocky__bootstrap_dns | to_nice_yaml(indent=2) | trim | indent(2) }}
+{% endblock %}
+
 {% block conditional -%}
 conditional:
   fallbackUpstream: false

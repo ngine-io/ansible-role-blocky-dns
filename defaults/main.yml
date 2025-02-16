@@ -74,3 +74,4 @@ blocky__min_tls_version: ""
 
 blocky__redis: {}
 
+blocky__bootstrap_dns: {}
