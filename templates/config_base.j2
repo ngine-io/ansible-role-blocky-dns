@@ -77,7 +77,7 @@ bootstrapDns:
 
 {% block conditional -%}
 conditional:
-  fallbackUpstream: false
+  fallbackUpstream: {{ blocky__custom_domain_fallback_upstream | lower }}
   mapping:
     {{ blocky__custom_domain | to_nice_yaml(indent=2) | trim | indent(4) }}
 {% endblock %}

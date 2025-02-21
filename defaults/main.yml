@@ -50,6 +50,7 @@ blocky__upstreams:
 blocky__custom_dns: {}
 # web1.example.com: 10.100.1.2
 
+blocky__custom_domain_fallback_upstream: false
 blocky__custom_domain: {}
 # lan: 10.100.1.1
 
