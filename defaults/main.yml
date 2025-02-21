@@ -71,3 +71,7 @@ blocky__cert_file: ""
 blocky__key_file: ""
 # Minimum TLS version blocky is serving
 blocky__min_tls_version: ""
+
+blocky__redis: {}
+
+blocky__bootstrap_dns: {}
