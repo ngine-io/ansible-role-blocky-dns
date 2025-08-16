@@ -42,7 +42,7 @@ blocky__blocking_inline_blacklists: {}
 blocky__blocking_inline_whitelists: {}
   # ads:
   #   - *.example.com
-  
+
 
 blocky__ports_dns: 53
 blocky__ports_http: 4000
