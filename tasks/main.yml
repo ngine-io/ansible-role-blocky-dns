@@ -95,8 +95,8 @@
   ansible.builtin.copy:
     dest: "{{ item.value | first }}"
     content: "{{ blocky__blocking_inline_blacklists[item.key] | join('\n') }}"
-    owner: root
-    group: root
+    owner: blocky
+    group: blocky
     mode: '0640'
   when:
     - blocky__blocking_inline_blacklists[item.key] is defined
@@ -120,8 +120,8 @@
   ansible.builtin.copy:
     dest: "{{ item.value | first }}"
     content: "{{ blocky__blocking_inline_whitelists[item.key] | join('\n') }}"
-    owner: root
-    group: root
+    owner: blocky
+    group: blocky
     mode: '0640'
   when:
     - blocky__blocking_inline_whitelists[item.key] is defined
