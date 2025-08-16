@@ -37,11 +37,11 @@ blocky__blocking_whitelists:
 blocky__blocking_inline_blacklists: {}
   # ads:
   #   - www.googleadservices.com
-  #   - /^banners?[_.-]/
+  #   - "/^banners?[_.-]/"
 
 blocky__blocking_inline_whitelists: {}
   # ads:
-  #   - *.example.com
+  #   - "*.example.com"
 
 
 blocky__ports_dns: 53
