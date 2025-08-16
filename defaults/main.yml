@@ -30,8 +30,19 @@ blocky__blocking_blacklists:
 blocky__blocking_whitelists:
   ads:
     - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
-#   - |
-#     www.googleadservices.com
+
+# List groups of literal domains, domain wildcards or regular expressions
+# May use the same group names as blocky__blocking_blacklists, these lists will be merged in the
+# final configuration.
+blocky__blocking_inline_blacklists: {}
+  # ads:
+  #   - www.googleadservices.com
+  #   - /^banners?[_.-]/
+
+blocky__blocking_inline_whitelists: {}
+  # ads:
+  #   - *.example.com
+  
 
 blocky__ports_dns: 53
 blocky__ports_http: 4000

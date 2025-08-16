@@ -6,6 +6,12 @@
     blocky__hosts_dns_enabled: true
     blocky__hosts_dns_host_ip_var: "ansible_host"
     blocky__hosts_dns_domain: ".local.example.com"
+    blocky__blocking_inline_blacklists:
+      ads:
+        - www.example.com
+    blocky__blocking_inline_whitelists:
+      ads:
+        - www.example.org
     blocky__blocking_blacklists: {}
     blocky__ports_dns: 127.0.0.1:5353
     blocky__cert_file: "/etc/cert/blocky_cert.pem"
