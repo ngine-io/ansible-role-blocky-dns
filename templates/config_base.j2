@@ -71,8 +71,10 @@ customDNS:
 {% endblock %}
 
 {% block bootstrap_dns -%}
+{% if blocky__bootstrap_dns | length > 0 %}
 bootstrapDns:
   {{ blocky__bootstrap_dns | to_nice_yaml(indent=2) | trim | indent(2) }}
+{% endif %}
 {% endblock %}
 
 {% block conditional -%}

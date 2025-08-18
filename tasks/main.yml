@@ -118,4 +118,5 @@
     port: "{{ (blocky__ports_dns | string | ansible.builtin.split(':') | last) if ':' in blocky__ports_dns | string else blocky__ports_dns }}"
     delay: 5
     timeout: 30
+  retries: 5
   when: blocky__readiness_check_enabled
