@@ -1,5 +1,5 @@
 ---
-blocky__version: v0.24
+blocky__version: v0.26
 blocky__arch: "{{ ansible_machine }}"
 blocky__system: "{{ ansible_system }}"
 blocky__base_url: https://github.com/0xERR0R/blocky/releases/download
