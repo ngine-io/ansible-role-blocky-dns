@@ -13,6 +13,8 @@
       ads:
         - www.example.org
     blocky__blocking_blacklists: {}
+    blocky__caching_exclude:
+      - "/.*\\.lan$/"
     blocky__ports_dns: 127.0.0.1:5353
     blocky__cert_file: "/etc/cert/blocky_cert.pem"
     blocky__key_file: "/etc/cert/blocky_key.key"

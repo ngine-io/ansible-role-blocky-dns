@@ -44,9 +44,18 @@ log:
 
 {% block caching -%}
 caching:
-  minTime: 5m
-  maxTime: 60m
-  prefetching: true
+  minTime: {{ blocky__caching_min_time }}
+  maxTime: {{ blocky__caching_max_time }}
+  maxItemsCount: {{ blocky__caching_max_items_count }}
+  prefetching: {{ blocky__caching_prefetching }}
+  prefetchExpires: {{ blocky__caching_prefetch_expires }}
+  prefetchThreshold: {{ blocky__caching_prefetch_threshold }}
+  prefetchMaxItemsCount: {{ blocky__caching_prefetch_max_items_count }}
+  cacheTimeNegative: {{ blocky__caching_cache_time_negative }}
+{% if blocky__caching_exclude | length > 0 %}
+  exclude:
+    {{ blocky__caching_exclude | to_nice_yaml(indent=2) | trim | indent(4) }}
+{% endif %}
 {% endblock %}
 
 {% block custom_dns -%}

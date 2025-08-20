@@ -1,5 +1,5 @@
 ---
-blocky__version: v0.24
+blocky__version: v0.26.2
 blocky__arch: "{{ ansible_machine }}"
 blocky__system: "{{ ansible_system }}"
 blocky__base_url: https://github.com/0xERR0R/blocky/releases/download
@@ -87,3 +87,19 @@ blocky__min_tls_version: ""
 blocky__redis: {}
 
 blocky__bootstrap_dns: {}
+
+
+# Cachine configuration
+# Refer to https://0xerr0r.github.io/blocky/latest/configuration/#caching
+blocky__caching_min_time: 5m
+blocky__caching_max_time: 60m
+blocky__caching_max_items_count: 0
+blocky__caching_prefetching: true
+blocky__caching_prefetch_expires: 2h
+blocky__caching_prefetch_threshold: 5
+blocky__caching_prefetch_max_items_count: 0
+blocky__caching_cache_time_negative: 30m
+blocky__caching_exclude: []
+  # - /.*\\.lan$/
+  # - /.*\\.local$/
+  # - /.*\\.host\.com\.(jp|fr)$/
