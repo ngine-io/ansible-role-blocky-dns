@@ -13,3 +13,15 @@ blocking:
   whiteLists:
     {{ blocky__blocking_whitelists | to_nice_yaml(indent=2) | trim | indent(4) }}
 {% endblock%}
+
+{% block caching -%}
+caching:
+  minTime: {{ blocky__caching_min_time }}
+  maxTime: {{ blocky__caching_max_time }}
+  maxItemsCount: {{ blocky__caching_max_items_count }}
+  prefetching: {{ blocky__caching_prefetching }}
+  prefetchExpires: {{ blocky__caching_prefetch_expires }}
+  prefetchThreshold: {{ blocky__caching_prefetch_threshold }}
+  prefetchMaxItemsCount: {{ blocky__caching_prefetch_max_items_count }}
+  cacheTimeNegative: {{ blocky__caching_cache_time_negative }}
+{% endblock %}
