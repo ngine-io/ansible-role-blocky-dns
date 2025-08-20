@@ -89,7 +89,7 @@ blocky__redis: {}
 blocky__bootstrap_dns: {}
 
 
-# Cachine configuration
+# Caching configuration
 # Refer to https://0xerr0r.github.io/blocky/latest/configuration/#caching
 blocky__caching_min_time: 5m
 blocky__caching_max_time: 60m
