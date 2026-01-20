@@ -24,7 +24,7 @@ jobs:
       - name: Set up Python 3.
         uses: actions/setup-python@v6
         with:
-          python-version: 3.x
+          python-version: '3.13'  # Can't go to 3.14+ until Ansible 13.x
 
       - name: Install Ansible.
         run: pip3 install ansible-core

@@ -44,9 +44,14 @@ log:
 
 {% block caching -%}
 caching:
-  minTime: 5m
-  maxTime: 60m
-  prefetching: true
+  minTime: {{ blocky__caching_min_time }}
+  maxTime: {{ blocky__caching_max_time }}
+  prefetching: {{ blocky__caching_prefetching | to_json }}
+  maxItemsCount: {{ blocky__caching_max_items_count }}
+  prefetchExpires: {{ blocky__caching_prefetch_expires }}
+  prefetchThreshold: {{ blocky__caching_prefetch_threshold }}
+  prefetchMaxItemsCount: {{ blocky__caching_prefetch_max_items_count }}
+  cacheTimeNegative: {{ blocky__caching_cache_time_negative }}
 {% endblock %}
 
 {% block custom_dns -%}
@@ -79,7 +84,7 @@ bootstrapDns:
 
 {% block conditional -%}
 conditional:
-  fallbackUpstream: {{ blocky__custom_domain_fallback_upstream | lower }}
+  fallbackUpstream: {{ blocky__custom_domain_fallback_upstream | to_json }}
   mapping:
     {{ blocky__custom_domain | to_nice_yaml(indent=2) | trim | indent(4) }}
 {% endblock %}

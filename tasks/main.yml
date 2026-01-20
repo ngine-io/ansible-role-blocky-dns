@@ -65,26 +65,6 @@
     state: link
   notify: Restart blocky
 
-- name: Determine config template to use
-  block:
-    - name: Clean up version
-      ansible.builtin.set_fact:
-        blocky__version_cleaned: "{{ blocky__version | regex_replace('^v(.*)$', '\\1') }}"
-
-    - name: Get correct template
-      ansible.builtin.set_fact:
-        blocky__config_template: "{{ item.template }}"
-      when: (item.min_version is defined and item.max_version is defined
-                and blocky__version_cleaned is version(item.min_version, '>=') and blocky__version_cleaned is version(item.max_version, '<='))
-            or (item.max_version is defined and item.min_version is not defined and blocky__version_cleaned is version(item.max_version, '<='))
-            or (item.min_version is defined and item.max_version is not defined and blocky__version_cleaned is version(item.min_version, '>='))
-      with_items: "{{ blocky__config_template_versions }}"
-
-    - name: Assert a config template was found
-      ansible.builtin.assert:
-        that: blocky__config_template is defined
-        fail_msg: "No config template found for requested blocky version {{ blocky__version }}! That version might not be supported by this role!"
-
 - name: Configure blocky
   ansible.builtin.template:
     src: "{{ blocky__config_template }}"
