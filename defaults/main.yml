@@ -1,13 +1,22 @@
 ---
-blocky__version: v0.26
-blocky__arch: "{{ ansible_machine }}"
-blocky__system: "{{ ansible_system }}"
+blocky__version: v0.28.2
+blocky__arch: "{{ ansible_facts.machine }}"
+blocky__system: "{{ ansible_facts.system }}"
 blocky__base_url: https://github.com/0xERR0R/blocky/releases/download
 blocky__download_url: "{{ blocky__base_url }}/{{ blocky__version }}/blocky_{{ blocky__version }}_{{ blocky__system }}_{{ blocky__arch }}.tar.gz"
 blocky__checksum_url: "{{ blocky__base_url }}/{{ blocky__version }}/blocky_checksums.txt"
 blocky__download_path: /tmp
 blocky__install_path: /opt/blocky
 blocky__readiness_check_enabled: true
+
+blocky__caching_min_time: 5m
+blocky__caching_max_time: 60m
+blocky__caching_max_items_count: 0
+blocky__caching_prefetching: false
+blocky__caching_prefetch_expires: 2h
+blocky__caching_prefetch_threshold: 5
+blocky__caching_prefetch_max_items_count: 0
+blocky__caching_cache_time_negative: 30m
 
 blocky__blocking_client_groups_block:
   default:
@@ -46,6 +55,8 @@ blocky__upstreams:
     - 149.112.112.112
     - 1.1.1.1
     - 1.0.0.1
+
+blocky__config_template: config.yaml.j2
 
 blocky__custom_dns: {}
 # web1.example.com: 10.100.1.2

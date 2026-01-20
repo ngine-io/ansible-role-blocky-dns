@@ -1,5 +1,5 @@
 ---
-- name: "Verify"
+- name: Verify
   hosts: instance
   tasks:
     - name: Get cert from https port
