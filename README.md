@@ -17,7 +17,7 @@ Via `requirements.yml`:
 # file: requirements.yml
 roles:
   - name: ngine_io.blocky_dns
-    version: v0.1.0
+    version: v0.x.y
 ```
 
 To install:
