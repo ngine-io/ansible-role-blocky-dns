@@ -52,6 +52,10 @@ caching:
   prefetchThreshold: {{ blocky__caching_prefetch_threshold }}
   prefetchMaxItemsCount: {{ blocky__caching_prefetch_max_items_count }}
   cacheTimeNegative: {{ blocky__caching_cache_time_negative }}
+{% if blocky__caching_exclude %}
+  exclude:
+    {{ blocky__caching_exclude | to_nice_yaml(indent=2) | trim | indent(4) }}
+{% endif %}
 {% endblock %}
 
 {% block custom_dns -%}

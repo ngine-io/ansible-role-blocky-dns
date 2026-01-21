@@ -17,6 +17,10 @@ blocky__caching_prefetch_expires: 2h
 blocky__caching_prefetch_threshold: 5
 blocky__caching_prefetch_max_items_count: 0
 blocky__caching_cache_time_negative: 30m
+blocky__caching_exclude: []
+  # - /.*\.lan$/
+  # - /.*\.local$/
+  # - /.*\.host\.com\.(jp|fr)$/
 
 blocky__blocking_client_groups_block:
   default:
