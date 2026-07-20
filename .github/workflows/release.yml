@@ -22,7 +22,7 @@ jobs:
           path: ngine_io.blocky_dns
 
       - name: Set up Python 3.
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: '3.13'  # Can't go to 3.14+ until Ansible 13.x
 
