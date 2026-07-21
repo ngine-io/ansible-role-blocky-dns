@@ -103,3 +103,21 @@ prometheus:
 redis:
   {{ blocky__redis | to_nice_yaml(indent=2) | trim | indent(2) }}
 {% endblock %}
+
+{% block query_log -%}
+{% if blocky__query_log_type | default('') | trim %}
+queryLog:
+  type: {{ blocky__query_log_type }}
+{% if blocky__query_log_target | default('') | trim %}
+  target: "{{ blocky__query_log_target }}"
+{% endif %}
+  logRetentionDays: {{ blocky__query_log_log_retention_days }}
+  creationAttempts: {{ blocky__query_log_creation_attempts }}
+  creationCooldown: {{ blocky__query_log_creation_cooldown }}
+{% if blocky__query_log_fields %}
+  fields:
+    {{ blocky__query_log_fields | to_nice_yaml(indent=2) | trim | indent(4) }}
+{% endif %}
+  flushInterval: {{ blocky__query_log_flush_interval }}
+{% endif %}
+{% endblock %}

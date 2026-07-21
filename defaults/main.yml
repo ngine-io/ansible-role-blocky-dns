@@ -91,3 +91,22 @@ blocky__min_tls_version: ""
 blocky__redis: {}
 
 blocky__bootstrap_dns: {}
+
+# Query logging - https://0xerr0r.github.io/blocky/latest/configuration/#query-logging
+# Set blocky__query_log_type to enable query logging.
+# Supported types: mysql, postgresql, timescale, csv, csv-client, console, none
+# Leave empty to disable the queryLog section entirely.
+blocky__query_log_type: ""
+# Database connection string (for mysql/postgresql/timescale) or directory path (for csv/csv-client).
+blocky__query_log_target: ""
+# Delete log entries older than this many days. 0 = keep forever.
+blocky__query_log_log_retention_days: 0
+# Maximum number of attempts to create the log writer on startup.
+blocky__query_log_creation_attempts: 3
+# Cooldown duration between log writer creation retry attempts.
+blocky__query_log_creation_cooldown: 2s
+# Fields to include in log entries. Empty list = log all fields.
+# Valid values: clientIP, clientName, responseReason, responseAnswer, question, duration
+blocky__query_log_fields: []
+# How often to flush buffered data to the external database (database types only).
+blocky__query_log_flush_interval: 30s
