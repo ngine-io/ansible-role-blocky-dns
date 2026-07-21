@@ -74,6 +74,12 @@
     mode: "0644"
   notify: Restart blocky
 
+- name: Set cap_net_bind_service=+ep on blocky binary
+  community.general.capabilities:
+    path: "{{ blocky__install_path }}/{{ blocky__base }}/blocky"
+    capability: cap_net_bind_service=+ep
+    state: present
+
 - name: Configure blocky service
   ansible.builtin.template:
     src: blocky.service.j2
